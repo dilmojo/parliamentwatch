@@ -1,0 +1,49 @@
+name: Check for new parliamentary reports
+
+on:
+  schedule:
+    - cron: '30 4 * * *'  # 10:00 AM IST daily
+  workflow_dispatch:        # manual trigger from GitHub UI
+
+jobs:
+  check-new:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write       # needed to commit updated reports.json
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: pip install requests pypdf python-dotenv
+
+      - name: Check for new reports
+        run: python cli.py --check-new
+        env:
+          LOK_SABHA_NUMBER: '18'
+
+      - name: Send email if new reports found
+        if: hashFiles('data/notification.txt') != ''
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: ${{ secrets.SMTP_SERVER }}
+          server_port: ${{ secrets.SMTP_PORT }}
+          username: ${{ secrets.SMTP_USERNAME }}
+          password: ${{ secrets.SMTP_PASSWORD }}
+          subject: ${{ steps.read-subject.outputs.subject }}
+          to: ${{ secrets.NOTIFICATION_EMAIL }}
+          from: ${{ secrets.SMTP_USERNAME }}
+          body: file://data/notification.txt
+
+      - name: Commit updated data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/reports.json
+          git diff --cached --quiet || git commit -m "Update reports data [automated]"
+          git push

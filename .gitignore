@@ -1,0 +1,8 @@
+.env
+data/pdfs/
+data/text/
+data/summaries/
+data/notification.txt
+__pycache__/
+*.pyc
+.venv/
