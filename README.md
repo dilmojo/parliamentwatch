@@ -8,7 +8,7 @@ ParliamentWatch pulls reports from [sansad.in](https://sansad.in) (the official 
 
 ### Try It or Run Your Own
 
-- **[Live Demo](https://parliamentwatch.streamlit.app)** — browse, search, and try out AI summaries instantly. The demo resets between sessions, so summaries won't persist.
+- **[Live Demo](https://parliamentcommittee.streamlit.app)** — browse, search, and try out AI summaries instantly. The demo resets between sessions, so summaries won't persist.
 - **Fork & run locally** — for researchers who want persistent summaries, historical data, and full control. Clone the repo, run `streamlit run app.py`, and everything is cached to your disk. This is the recommended way to use ParliamentWatch for serious work.
 
 ---
@@ -85,7 +85,7 @@ streamlit run app.py
 
 This opens a browser window at `http://localhost:8501`. That's it — you're running ParliamentWatch!
 
-> **Why run locally?** The [live demo](https://parliamentwatch.streamlit.app) is great for a quick look, but downloaded PDFs, extracted text, and AI summaries don't persist between sessions on the cloud. When you run locally, everything is cached to your disk — summarize a report once and it's there forever.
+> **Why run locally?** The [live demo](https://parliamentcommittee.streamlit.app) is great for a quick look, but downloaded PDFs, extracted text, and AI summaries don't persist between sessions on the cloud. When you run locally, everything is cached to your disk — summarize a report once and it's there forever.
 
 ### Step 4: Fetch data
 
