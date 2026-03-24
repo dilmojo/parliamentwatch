@@ -500,7 +500,9 @@ if not has_data():
         '<p style="color: #85929E;">To get started, click <strong>Fetch All Committees</strong> in the sidebar.<br>'
         'This will download report listings for all 16 DRSCs from sansad.in.</p>'
         '<p style="font-size: 0.85em; color: #ABB2B9; margin-top: 1.5em;">'
-        'No API key needed for browsing and searching. Add one in the sidebar for AI summaries.</p>'
+        'No API key needed for browsing and searching. Add one in the sidebar for AI summaries.<br>'
+        'For persistent summaries and full control, '
+        '<a href="https://github.com/pranaykotas/parliamentwatch" style="color: #1B4F72;">fork the repo</a> and run locally.</p>'
         '</div>',
         unsafe_allow_html=True,
     )
