@@ -10,9 +10,25 @@ ParliamentWatch pulls reports from [sansad.in](https://sansad.in) (the official 
 
 ## Why This Exists
 
-Parliamentary committee reports are some of the most important documents in Indian democracy — they scrutinize government ministries, examine budgets, and recommend policy changes. But they're scattered across a clunky government website with no search, no alerts, and no way to quickly understand what a 200-page PDF says.
+In India's parliamentary democracy, **Departmentally Related Standing Committees (DRSCs)** are the most robust institutional mechanism through which the legislature exercises control over the executive. There are **16 DRSCs**, each shadowing a cluster of central government ministries. Together, they cover every arm of the Union Government.
+
+These committees examine:
+- **Demands for Grants** — scrutinising how each ministry proposes to spend public money
+- **Bills** referred to them by Parliament — providing detailed clause-by-clause analysis
+- **Policy subjects** — investigating issues of national importance on their own initiative
+
+Their reports are non-partisan, evidence-based documents that draw on testimonies from government officials, domain experts, and field visits. Unlike floor debates, committee proceedings allow for sustained, in-depth engagement with policy questions.
+
+**Yet these reports remain under-accessed.** They are buried across government websites with no unified search, no alerts for new publications, and no easy way to quickly grasp what a 200-page PDF says.
 
 ParliamentWatch fixes that.
+
+### Official Sources and Further Reading
+
+- **[ePARLIB](https://eparlib.sansad.in/)** — the government's official digital archive of parliamentary papers, including committee reports, debates, questions, and more
+- **[PRS Legislative Research](https://prsindia.org/)** — an independent research organisation that tracks Parliament, analyses Bills and committee reports, and publishes accessible summaries. The gold standard for expert commentary on parliamentary functioning.
+
+ParliamentWatch complements these resources by making it easier to *discover*, *search*, and *summarise* committee reports using AI.
 
 ---
 
@@ -23,12 +39,16 @@ ParliamentWatch fixes that.
 | Browse all reports for any of the 16 DRSCs | No |
 | Search report titles by keyword | No |
 | Full-text search across extracted PDFs | No |
+| Search across multiple Lok Sabhas at once | No |
 | Download report PDFs (English & Hindi) | No |
 | Extract and read full text from PDFs | No |
-| Sort reports by date or report number | No |
+| Sort and filter by date, category, or Lok Sabha | No |
+| Color-coded report categories (DFG, Action Taken, Bills, etc.) | No |
 | Export metadata, summaries, or text to CSV/Markdown | No |
+| Fetch all historical data (LS 14–18) in one click | No |
 | Get daily email alerts for new reports | No |
 | **AI-powered summaries of reports** | **Yes (free options available)** |
+| **Batch-summarize all extracted reports for a committee** | **Yes (free options available)** |
 
 ---
 
@@ -64,40 +84,54 @@ This opens a browser window at `http://localhost:8501`. That's it — you're run
 
 Click **"Fetch All Committees"** in the sidebar. This pulls the latest report listings from sansad.in. It takes about a minute for all 16 committees.
 
+Want historical data too? Use **"Fetch All Historical Data"** to download reports from Lok Sabhas 14–18 (2004 to present) in one go. Data is merged — nothing gets overwritten.
+
 ---
 
 ## Using the Web App
 
-The app has four tabs:
+The app has five tabs:
 
 ### Dashboard
 An overview showing:
-- Total number of reports across all committees
-- How many committees have data
-- Recently published reports
-- Reports per committee (bar chart)
+- Total reports, committees with data, and recent publications
+- Lok Sabha filter — view one LS or all at once
+- Color-coded category badges (Demand for Grants, Action Taken, Bills, Assurances, Subject Reports)
+- Committee table with progress indicators (text extracted / summarized)
 
-Click on any report title to see its details, download links, and (if you have an API key) generate an AI summary.
+Click on any report title to see its details, download links, and generate an AI summary.
 
 ### Committee Deep Dive
-Pick a committee from the dropdown. You'll see all its reports in a sortable table — sort by date (newest/oldest) or report number. Click any report title to view details or extract its text.
+Pick a committee and optionally a Lok Sabha. You'll see all its reports in a sortable table — sort by date or report number, filter by category or keyword. Each report expander shows:
+- Full title, dates, PDF links
+- Extract & Summarize button
+- Cached summary if available
+
+Use the **"Summarize All"** button to batch-summarize all extracted reports for that committee in one click.
 
 ### Search
 Two search modes:
 - **Titles only** — fast keyword search across all report titles
-- **Titles + Full text** — searches inside extracted PDF text too (reports must be extracted first)
+- **Titles + Full text** — searches inside extracted PDF text too
+
+Filter by committee or Lok Sabha. Search results show summary previews where available.
 
 ### Export
 Download your data in three formats:
-- **Report metadata** — titles, dates, committees (CSV or Markdown)
-- **AI summaries** — all generated summaries bundled together
+- **Report metadata** — titles, dates, committees (CSV)
+- **AI summaries** — all generated summaries (Markdown or CSV)
 - **Extracted text** — full text from all extracted PDFs
+
+Individual summaries can also be downloaded directly from any report dialog.
+
+### The Why?
+Background on why parliamentary committees matter, what makes this tool different, and links to official sources (ePARLIB) and expert analysis (PRS Legislative Research).
 
 ---
 
 ## AI Summaries (Optional)
 
-The sidebar has a **"AI Summarization"** section where you can enter an API key. Summaries are generated on-demand when you click "Generate Summary" on a report.
+The sidebar has an **"AI Summarization"** section where you can pick a provider and enter an API key. Summaries are generated on-demand when you click "Generate Summary" on a report.
 
 ### Free Options
 
@@ -158,7 +192,7 @@ python cli.py --scrape --committees defence,finance
 # Rajya Sabha committees
 python cli.py --scrape --house R
 
-# Historical data (e.g. 17th Lok Sabha)
+# Historical data (e.g. 17th Lok Sabha) — merges with existing data
 python cli.py --scrape --lok-sabha 17
 
 # Export to CSV or Markdown
@@ -237,9 +271,9 @@ sansad.in API  →  scraper.py  →  data/reports.json  (metadata)
                                   summarizer.py →  data/summaries/ (AI summaries)
 ```
 
-- **scraper.py** calls the sansad.in REST API to fetch structured report metadata — no browser automation or web scraping needed
+- **scraper.py** calls the sansad.in REST API to fetch structured report metadata — no browser automation or web scraping needed. Data from different Lok Sabhas is merged, not overwritten.
 - **pdf_utils.py** downloads PDFs and extracts text using pypdf
-- **summarizer.py** sends extracted text to your chosen LLM and caches the summary
+- **summarizer.py** sends extracted text to your chosen LLM (BYOK) and caches the summary
 - **app.py** ties it all together in a Streamlit web interface
 - **cli.py** provides the same features via the command line
 
