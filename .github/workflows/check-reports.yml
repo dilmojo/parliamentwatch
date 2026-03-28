@@ -35,7 +35,7 @@ jobs:
           server_port: ${{ secrets.SMTP_PORT }}
           username: ${{ secrets.SMTP_USERNAME }}
           password: ${{ secrets.SMTP_PASSWORD }}
-          subject: ${{ steps.read-subject.outputs.subject }}
+          subject: "New parliamentary reports found"
           to: ${{ secrets.NOTIFICATION_EMAIL }}
           from: ${{ secrets.SMTP_USERNAME }}
           body: file://data/notification.txt
