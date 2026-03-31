@@ -375,7 +375,7 @@
       "laid_in_rs": "27-Mar-2026",
       "presented_to_speaker": "27-Mar-2026",
       "pdf_url": "https://sansad.in/getFile/app/lsscommittee/Agriculture, Animal Husbandry and Food Processing/18_Agriculture_Animal_Husbandry_and_Food_Processing_33.pdf?source=app",
-      "pdf_url_hindi": null,
+      "pdf_url_hindi": "https://sansad.in/getFile/app/committee_hindi/Agriculture, Animal Husbandry and Food Processing/18_Agriculture_Animal_Husbandry_and_Food_Processing_33(hindi).pdf?source=app",
       "lok_sabha": 18,
       "house": "L"
     },
@@ -2356,6 +2356,19 @@
     }
   ],
   "communications": [
+    {
+      "committee": "communications",
+      "committee_name": "Communications and Information Technology",
+      "report_number": 27,
+      "title": "Twenty-seventh Report on the Subject ‘Impact of emergence of Artificial Intelligence and related issues’ relating to the Ministry of Electronics and Information Technology.",
+      "presented_in_ls": "30-Mar-2026",
+      "laid_in_rs": "30-Mar-2026",
+      "presented_to_speaker": null,
+      "pdf_url": "https://sansad.in/getFile/app/lsscommittee/Communications and Information Technology/18_Communications_and_Information_Technology_27.pdf?source=app",
+      "pdf_url_hindi": "https://sansad.in/getFile/app/committee_hindi/Communications and Information Technology/18_Communications_and_Information_Technology_27(hindi).pdf?source=app",
+      "lok_sabha": 18,
+      "house": "L"
+    },
     {
       "committee": "communications",
       "committee_name": "Communications and Information Technology",
