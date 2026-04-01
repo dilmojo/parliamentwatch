@@ -26,12 +26,16 @@ def save_reports(reports):
         json.dump(reports, f, indent=2, ensure_ascii=False)
 
 
-def sanitize_url(url):
-    """Fix backslashes in URLs returned by sansad.in API."""
-    if url:
-        return url.replace("\\", "/")
-    return url
+from urllib.parse import quote, urlparse, urlunparse
 
+def sanitize_url(url):
+    """Fix backslashes and encode spaces in URLs returned by sansad.in API."""
+    if url:
+        url = url.replace("\\", "/")
+        if ' ' in url:
+            parsed = urlparse(url)
+            url = urlunparse(parsed._replace(path=quote(parsed.path)))
+    return url
 
 def fetch_committee_reports(committee_key, lok_sabha=None, house="L"):
     """
